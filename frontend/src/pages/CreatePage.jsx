@@ -8,14 +8,18 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useProductStore } from "../store/product.js";
 const CreatePage = () => {
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
     image: "",
   });
-  const handleAddProduct = () => {
-    console.log(newProduct);
+  const { createProduct } = useProductStore();
+  const handleAddProduct = async () => {
+    const { success, message } = await createProduct(newProduct);
+    console.log("success:", success);
+    console.log("message:", message);
   };
   return (
     <Container maxW={"container.sm"}>
